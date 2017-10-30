@@ -274,7 +274,7 @@ protected void onDraw(Canvas canvas) {
 ### 3.5 暴露外部接口
 为了灵活的可以控制绘制的状态，我们可以暴露一个接口给外部设置是否选中
 
-```  java
+```
 /**
  *  是否选中
  */
@@ -307,7 +307,7 @@ private void reset() {
 想想`checkbox`，它不需要暴露外部接口也能通过点击控件来实现选中还是取消选中，所以接下来要实现的就是为控件添加点击事件
 
 先定义一个接口`OnCheckedChangeListener`,实现监听此控件的监听事件
-```  java
+```
 private OnCheckedChangeListener mOnCheckedChangeListener;
 
 public interface OnCheckedChangeListener {
@@ -321,7 +321,7 @@ public void setOnCheckedChangeListener(OnCheckedChangeListener listener) {
 
 接下来，初始化控件的点击事件
 
-```  java
+```
 /**
  * 在构造函数中初始化
  */
@@ -356,7 +356,7 @@ private void setUpEvent() {
 
 ### 3.7 自定义配置项
 
-``` xml
+```
 <declare-styleable name="TickView">
     <!--没有选中的基调颜色-->
     <attr name="uncheck_base_color" format="color" />
@@ -376,7 +376,7 @@ private void setUpEvent() {
 ```
 这里简单说一下动画执行速度的配置，这里我设置了3档速度，我用枚举定义了三个速度的配置项
 
-``` java
+```
 enum TickRateEnum {
 
     //低速
@@ -421,7 +421,7 @@ enum TickRateEnum {
 
 ```
 获取xml的配置，获取对应的枚举，从而得到配好的动画速度的一些参数
-``` java
+```
 /**
  * 构造函数
  */
