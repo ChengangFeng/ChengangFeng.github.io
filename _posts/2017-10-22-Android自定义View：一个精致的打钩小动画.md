@@ -1,7 +1,7 @@
 > Github地址：TickView，一个精致的打钩小动画
 [https://github.com/ChengangFeng/TickView](https://github.com/ChengangFeng/TickView)
 
-## 1. 前言
+# 1. 前言
 
 最近在看轻芒杂志的时候，看到一个动画很带感很精致；
 
@@ -28,14 +28,14 @@
 
 是不是模仿得有几分相似，哈哈~，下面来看一下我实现的思路吧
 
-## 2. 分析
+# 2. 分析
 
 这个动画实现起来并不复杂，掌握几个基本的自定义view的方法即可。
 
 实现的思路分为`选中状态`和`未选中状态`
 
 
-### 2.1 未选中的状态
+#### 2.1 未选中的状态
 
 
 ![未选择.png](http://upload-images.jianshu.io/upload_images/956714-d2447c0e31c805df.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
@@ -45,7 +45,7 @@
 * 圆环
 * 勾
 
-### 2.2 选中的状态
+#### 2.2 选中的状态
 绘制选中的动画稍微复杂一点，主要包括
 1. **绘制圆环进度条**
 这个简单，直接使用`drawArc()`即可实现
@@ -62,9 +62,9 @@
 4. **最后是圆环放大再回弹的效果**
 放大回弹可以使用`drawArc()`，配合改变画笔的宽度来实现即可
 
-## 3.具体实现
+# 3.具体实现
 
-### 3.1 确定进度圆环和钩的位置
+#### 3.1 确定进度圆环和钩的位置
 
 经过上面分析，无论是选中状态还是未选中状态，进度圆环和钩的位置是不变的，所以我们先来确定圆环的位置和钩的位置
 
@@ -94,7 +94,7 @@ protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
 }
 ```
 
-### 3.2 定义变量，标记状态
+#### 3.2 定义变量，标记状态
 既然分选中状态和未选中状态，那个绘制过程中，就必须判断当前究竟是绘制未选中的呢还是选中了的呢。
 
 因此在这里，我定义了一个变量`isChecked`
@@ -111,7 +111,7 @@ public void setChecked(boolean checked) {
 }
 ```
 
-### 3.3 绘制未选中状态
+#### 3.3 绘制未选中状态
 
 绘制过程中那些画笔就不详细说了，一开始初始化画笔最后绘制的时候调用即可
 
@@ -131,10 +131,10 @@ protected void onDraw(Canvas canvas) {
 }
 ```
 
-### 3.4 绘制选中状态
+#### 3.4 绘制选中状态
 选中状态是个动画，因此我们这里需要调用`postInvalidate()`**不断进行重绘**，直到动画执行完毕；另外，我这里用计数器的方式来控制绘制的进度。
 
-### 3.4.1 绘制圆环进度条
+#### 3.4.1 绘制圆环进度条
 
 绘制进度圆环这里，我们定义一个计数器`ringCounter`,峰值为360（也就是360度），每执行一次`onDraw()`方法，我们对`ringCounter`进行自加，进而模拟进度。
 
@@ -169,7 +169,7 @@ protected void onDraw(Canvas canvas) {
 ![绘制圆环进度条.gif](http://upload-images.jianshu.io/upload_images/956714-409731a1ccf23cd8.gif?imageMogr2/auto-orient/strip)
 
 
-### 3.4.2 绘制向圆心收缩的动画
+#### 3.4.2 绘制向圆心收缩的动画
 圆心收缩的动画在圆环进度达到100%的时候才进行，同理，也采用计数器`circleCounter`的方法来控制绘制的时间和速度
 ``` java
 //计数器
@@ -200,7 +200,7 @@ protected void onDraw(Canvas canvas) {
 
 ![绘制向圆心收缩的动画.gif](http://upload-images.jianshu.io/upload_images/956714-91606ea8b700cf45.gif?imageMogr2/auto-orient/strip)
 
-### 3.4.3 绘制钩
+#### 3.4.3 绘制钩
 当白色的圆半径收缩到0后,就该绘制打钩了。
 
 绘制打钩，这里问题不大，因为在`onMeasure()`中已经将钩的三个坐标点已经计算出来了，直接使用`drawLine()`即可画出来。
@@ -229,7 +229,7 @@ protected void onDraw(Canvas canvas) {
 
 ![绘制钩后效果图.gif](http://upload-images.jianshu.io/upload_images/956714-c3a7b86593b1e4ec.gif?imageMogr2/auto-orient/strip)
 
-### 3.4.4 绘制放大再回弹的效果
+#### 3.4.4 绘制放大再回弹的效果
 
 放大再回弹的效果，开始的时机应该也是收缩动画结束后开始，也就是说跟打钩的动画同时进行
 
@@ -271,7 +271,7 @@ protected void onDraw(Canvas canvas) {
 
 ![最终的效果图](http://upload-images.jianshu.io/upload_images/956714-c741924df3b9099a.gif?imageMogr2/auto-orient/strip)
 
-### 3.5 暴露外部接口
+#### 3.5 暴露外部接口
 为了灵活的可以控制绘制的状态，我们可以暴露一个接口给外部设置是否选中
 
 ```  java
@@ -301,7 +301,7 @@ private void reset() {
 }
 ```
 
-### 3.6 添加点击事件
+#### 3.6 添加点击事件
 控件到这里已经基本做好了，但还不是特别的完善。
 
 想想`checkbox`，它不需要暴露外部接口也能通过点击控件来实现选中还是取消选中，所以接下来要实现的就是为控件添加点击事件
@@ -354,7 +354,7 @@ private void setUpEvent() {
 ![添加点击事件.gif](http://upload-images.jianshu.io/upload_images/956714-dc33b8f565be34aa.gif?imageMogr2/auto-orient/strip)
 
 
-### 3.7 自定义配置项
+#### 3.7 自定义配置项
 
 ``` xml
 <declare-styleable name="TickView">
