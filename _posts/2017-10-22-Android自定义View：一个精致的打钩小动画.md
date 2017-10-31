@@ -1,7 +1,7 @@
 > Github地址：TickView，一个精致的打钩小动画
 [https://github.com/ChengangFeng/TickView](https://github.com/ChengangFeng/TickView)
 
-## 1. 前言
+## 前言
 
 最近在看轻芒杂志的时候，看到一个动画很带感很精致；
 
